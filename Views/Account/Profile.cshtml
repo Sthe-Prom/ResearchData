@@ -1,0 +1,98 @@
+@model ProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "_dashLayout";
+}
+
+<div class="text-center"> 
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Add User Profile Details</h1>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row column1">
+                <div class="col-12 text-center mt-3 jumbotron">
+                    <form asp-action="Profile" method="post"  enctype="multipart/form-data"> 
+                       
+                        <div asp-validation-summary="All"></div>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Name"></label>
+                                        <div><span asp-validation-for="Name" class="text-danger"></span></div>
+                                    <input asp-for="Name" class="form-control" />      
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Surname"></label>
+                                        <div><span asp-validation-for="Surname" class="text-danger"></span></div>
+                                    <input asp-for="Surname" rows="1" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Email"></label>
+                                        <div><span asp-validation-for="Email" class="text-danger"></span></div>
+                                    <input asp-for="Email" type="email" class="form-control" />                
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="Cell"></label>
+                                        <div><span asp-validation-for="Cell" class="text-danger"></span></div>
+                                    <input asp-for="Cell" class="form-control" />                
+                                </div>
+
+                                <div class="form-group">  
+                                    <label asp-for="Id">Users</label> 
+                                    <div><span asp-validation-for="Id" class="text-danger"></span></div>    
+                                    <select class="form-control" name="Id" asp-for="Id" asp-items="Model.Users"  >
+                                        <option value="Id">Select User</option>                                                                            
+                                    </select>
+                                </div> 
+                                                       
+                                <div class="form-group">  
+                                    <label asp-for="SubunitID">Subunit</label> 
+                                    <div><span asp-validation-for="SubunitID" class="text-danger"></span></div>    
+                                    <select class="form-control" name="SubunitID" asp-for="SubunitID" asp-items="Model.Subunits"  >
+                                        <option value="SubunitID">Select Subunit</option>                                                                              
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 offset-md-3 form-group text-center">
+                                <div class="">
+                                    <label asp-for="ProfileImg" class="control-label">Profile Image</label>
+                                    <div class="custom-file">
+                                        <input asp-for="ProfileImg" name="ProfileImg" class="custom-file-input" id="customFile" type="file" />
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    <span asp-validation-for="ProfileImg" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                            
+                       
+                        
+                        <div class="text-center">
+                            <button class="btn btn-primary" type="submit">Save Account</button>
+                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+

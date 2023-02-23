@@ -1,0 +1,145 @@
+﻿@inject SignInManager<User> signInManager;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Research Data Management</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+   
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                     ResearchData@* <img class="img-responsive" width="50%" height="auto" src="~/images/logo/res_logo6.png" alt="#" /> *@
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">                 
+                    @await Component.InvokeAsync("NavVisitors")                  
+                </div>                
+
+                <div class="dropdown nav-item list-unstyled">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="more" aria-haspopup="true">                                           
+                        More
+                    </a>
+                    <div class="dropdown-menu list-unstyled" role="menu" data-target="#more" style="">
+                                                        
+                        <div class="nav-item"> 
+                           
+                                <a class="dropdown-item" asp-action="Login" asp-controller="UserAccount" asp-route-category="">
+                                    Sign In
+                                </a>
+                                @* <a class="dropdown-item" asp-action="SignUp" asp-controller="UserAccount" asp-route-category="">
+                                    Sign Up
+                                </a> *@
+                                                                                                          
+                        </div>
+                    </div>
+                </div>
+                 
+                
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container" >
+        <main role="main" class="pb-3" style="min-height: 600px;" >
+            @RenderBody()
+        </main>
+    </div>
+                
+
+    @* <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - ResearchData - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer> *@
+
+     <footer class="wrapper" id="footer" style="background-color: #15283C;">
+        <div class="container">
+            <div class="row">
+                @* <div class="col-sm-12 center_c">
+                    <div class="row">
+                        <div class="col-sm-6 center_c">
+                            <h5 class="text-center" style="color: #ccc">BI Solution for Research Data </h5>
+                            <hr />
+                        </div>
+                    </div>
+                </div> *@
+            
+                <div class="col-sm-12 center_c">
+                    <div class="row center_c">
+                       
+                        <div class="col-sm-4">
+                            <ul class="">
+                                <h4 style="color: #7CB9E8;">Recommended Contents</h4>
+                                <li class=""><a href="https://olap.com/olap-definition/">About BI</a></li>                                
+                            </ul>
+                            
+                        </div>
+                        <div class="col-sm-4">
+                            <ul>
+                                <h4 style="color: #7CB9E8;">Quick Links</h4>
+                                <li class=""><a href="#">Integrated Analytics Tools</a></li>                               
+                            </ul>
+                           
+                        </div>  
+                         <div class="col-sm-4">
+                            <ul style="color: #fafafa;">
+                                <h4 style="color: #7CB9E8;">Contact Us</h4>
+                               
+                                <li class="list-inline-item">
+                                    <a href="~/Home/Contact">
+                                    Contact Us &nbsp;  <i class="fa fa-bar-chart-o green_color"></i></a>
+                                </li>
+                            
+                                @* <li class="list-inline-item">
+                                    <a href="~/Home/Contact">
+                                    Cellphone  &nbsp; <i class="fa fa-bar-chart-o green_color"></i> </a>
+                                </li> *@
+                                
+                               
+                            </ul>
+                           
+                        </div>                     
+
+                    </div>
+                  
+                        
+                  
+                </div>   
+                  
+                <div class="col-sm-12 center_c ">
+                    <div class="row">
+                        <div class="col-sm-10 center_c">
+                            <hr style="color: #ccc;" />
+                            <p class="text-center">
+                              
+                                &copy; @System.DateTime.Now.Year - UFS - Bloemfontein Terms and
+                                    Conditions <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+                            </p>
+                            
+                        </div>
+                    </div> 
+                </div>
+
+            </div>      
+        </div>        
+      
+     </footer> 
+
+     
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

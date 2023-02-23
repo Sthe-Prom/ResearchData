@@ -1,0 +1,6 @@
+*.json
+obj/
+bin/
+*.xml
+wwwroot/images/
+wwwroot/files/

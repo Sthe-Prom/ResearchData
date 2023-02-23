@@ -1,0 +1,455 @@
+@inject SignInManager<User> signInManager;
+@inject UserManager<User> userManager;
+@* @ViewBag.Accounts;
+
+@{
+    //var myController = (_BaseController)ViewContext.Controller;
+    var menuPageModel = ((BaseController)ViewContext.Controller).GetUserDetails();
+} *@
+
+@* @{
+    var viewModel = (BaseViewModel)ViewBag.BaseViewModel;
+    IEnumerable<Account> Accounts = ViewData["BaseViewModel"] as IEnumerable<Account>;
+} *@
+
+@model BaseViewModel;
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>@ViewData["Title"] - ResearchData</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- site icon -->
+      <link rel="icon" href="~/images/fevicon.png" type="image/png" />
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+      <!-- site css -->
+      <link rel="stylesheet" href="~/css/style.css" />
+      <!-- responsive css -->
+      <link rel="stylesheet" href="~/css/responsive.css" />
+      <!-- color css -->
+      <link rel="stylesheet" href="~/css/colors.css" />
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="~/css/bootstrap-select.css" />
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="~/css/perfect-scrollbar.css" />
+      <!-- custom css -->
+      <link rel="stylesheet" href="~/css/custom.css" />
+      <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+
+      <!-- Latest compiled and minified CSS -->
+      @* <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> *@
+
+    
+      @* <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"/> *@
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" />
+
+      <link  rel="" href=""/>
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+      
+       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  
+
+   </head>
+   <body class="dashboard dashboard_1">
+        <div class="full_container">
+            <div class="inner_container">
+                <!-- Sidebar  -->
+                <nav id="sidebar">
+                    <div class="sidebar_blog_1">
+                        <div class="sidebar-header">
+                            <div class="logo_section">
+                                <a href="~/">
+                                     <img class="logo_icon img-responsive" src="~/images/logo/logo.png" alt="#" />                                    
+                                </a>
+                            </div>
+                        </div>
+                        <div class="sidebar_user_info">
+                            <div class="icon_setting"></div>
+                            <div class="user_profle_side">
+
+
+                                @{
+                                    if(Model.Accounts != null && Model.Accounts.Count() != 0)
+                                    {
+                                    var userId = userManager.GetUserId(User);
+                                  
+                                if((signInManager.IsSignedIn(User)))                                                
+                                { 
+                                                                      
+                                        @foreach (var item in Model.Accounts.Where(c => c.Id == userId))
+                                        {
+                                            <div class="user_img">                                       
+                                                <img src="~/images/userprofile/@item.ProfileImg"   
+                                                        class="rounded-circle img-responsive"   
+                                                        width="150px" height="70px"
+                                                        asp-append-version="true" />
+                                            </div>
+                                        }
+                                        
+                                    
+                                        @* <img class="img-responsive rounded-circle" src="~/images/layout_img/user_img.jpg" alt="#" /> *@
+                                        @* <i style="font-size:44px; color: #879579; margin: 15px;" class="fa fa-briefcase rounded-circle text-center"> </i> *@
+
+                                    
+                                    <div class="user_info">     
+                                        
+                                        @* @{
+                                            var userid = userManager.GetUserId(User);;
+                                            //var userId = user.Id;
+                                        }                               *@
+                                                                                            
+                                        <h6>@User.Identity.Name</h6>     
+                                        <p><span class="online_animation"></span> Online</p>                                      
+                                                                
+                                    </div>
+                                }
+                                else
+                                {
+                                     
+                                    <div class="user_info">
+                                        <img class="img-responsive" width="90%" height="auto" src="~/images/logo/res_logo6.png" alt="#" />
+                                    </div>
+
+                                }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar_blog_2">
+                        <h4 class="text-center">General</h4>
+                        <ul class="list-unstyled components">
+                            
+                            @if(signInManager.IsSignedIn(User))                            
+                            {   
+                                <li class="active">
+                                    <a href="~/Reports/Index">
+                                        <i class="fa fa-clock-o orange_color"></i> 
+                                        <span>Reports</span>
+                                    </a>
+                                </li>   
+                                <li>
+                                    <a href="#dashboard" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                        <i class="fa fa-bar-chart-o green_color"></i> 
+                                        <span>Dashboard</span>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="dashboard">
+                                    <li>
+                                        <a href="~/Dashboard/Analytics">> <span>Analytics</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="~/Dashboard/EmbAnalytics">> <span>Embedded Analytics</span></a>
+                                    </li>
+                                    </ul>
+                                </li>
+                                        
+                                <li>
+                                    <a href="#survey" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                        <i class="fa fa-clone yellow_color"></i> 
+                                        <span>Research</span>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="survey">
+                                        <li><a href="~/Survey/Index">> <span>Research Data Management</span></a></li>
+                                        @* <li><a href="#">> <span>BQ</span></a></li>
+                                        <li><a href="#">> <span>Module Evaluation</span></a></li>                                *@
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="#apps" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                        <i class="fa fa-object-group blue2_color"></i> 
+                                        <span>Responses</span>
+                                    </a>
+                                    <ul class="collapse list-unstyled" id="apps">
+                                        <li><a href="~/Answer/Index">> <span>Response Data Management</span></a></li>
+                                        <li><a href="#">> <span>Consolidated Data</span></a></li>
+                                        @*<li><a href="#">> <span>Raw Data</span></a></li> *@
+                                    </ul>
+                                </li>
+                            
+                                <li>
+                                    <a href="#units" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                        <i class="fa fa-map purple_color2"></i> <span>Accounts</span></a>
+                                    <ul class="collapse list-unstyled" id="units">
+                                        <li><a href="~/Subunit/Index">> <span>Sub-units</span></a></li>
+                                        <li><a href="~/UserAdmin/Index">> <span>User Management</span></a></li>
+                                        <li><a href="~/Account/Index">> <span>User Accounts</span></a></li>
+                                    </ul>
+                                </li>
+
+                                
+                                <li>
+                                    <a href="#ques" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                        <i class="fa fa-table purple_color"></i> <span>Question</span></a>
+                                    <ul class="collapse list-unstyled" id="ques">
+                                        <li><a href="~/Section/Index">> <span>Question Section</span></a></li>
+                                        <li><a href="~/Question/Index">> <span>Question Management</span></a></li>
+                                        <li><a href="~/Question/Manage">> <span>Questions Reports</span></a></li>
+                                    </ul>
+                                </li>
+                            }
+                            <li>
+                                <a href="~/Home/Contact">
+                                <i class="fa fa-paper-plane red_color"></i> <span>Contact</span></a>
+                            </li>                           
+                            
+                            <li><a href="~/Home/About"><i class="fa fa-briefcase blue1_color"></i> <span>About</span></a></li>
+                            <li><a href="~/Home/Settings"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- end sidebar -->
+                <!-- right content -->
+                <div id="content">
+                    <!-- topbar -->
+                    <div class="topbar">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <div class="full">
+                                <button type="button" id="sidebarCollapse" class="sidebar_toggle">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                                <div class="logo_section">
+                                    <a href="~/Home/Index">
+                                        <img class="img-responsive" width="100%" style="color: white; " height="auto" src="~/images/logo/res_logo5.png" alt="#" />
+                                    </a>
+                                </div>
+                                <div class="right_topbar">
+                                    <div class="icon_info">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-bell" aria-hidden="true"></i><span class="badge"></span></a></li>
+                                            <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span class="badge"></span></a></li>
+                                        </ul>
+                                        <ul class="user_profile_dd">
+                                            <li class="">
+                                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                                      @if(signInManager.IsSignedIn(User))                            
+                                                        { 
+                                                    
+                                                        @* <img class="img-responsive rounded-circle" src="~/images/layout_img/user_img.jpg" alt="#" /> *@
+                                                        @* <i style="font-size: 28px; color: #879579;" class="fa fa-user"> </i> *@
+                                                           @* @foreach (var item in Model)
+                                                            {
+                                                                <img src="~/images/userprofile/@item.ProfileImg"   
+                                                                    class="rounded-circle img-responsive" asp-append-version="true" />
+                                                            } *@
+                                                          
+                                                            if(Model.Accounts != null && Model.Accounts.Count() != 0)
+                                                            {
+                                                                @foreach (var item in Model.Accounts.Where(c => c.Id == userManager.GetUserId(User)))
+                                                                {
+                                                                     
+                                                                                                            
+                                                                        <img src="~/images/userprofile/@item.ProfileImg"   
+                                                                                class="rounded-circle img-responsive" 
+                                                                                width="40px" height="30px"
+                                                                                asp-append-version="true" />
+                                                                   
+                                                                }
+                                                            }
+                                                        <span class="name_user">                                                                                                                
+                                                                @User.Identity.Name                                               
+                                                        </span> 
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="name_user">  
+                                                                User &nbsp;
+                                                                <i class="fa fa-user"> </i>                                                                
+                                                            </span>                                                             
+                                                        }
+                                                        
+                                                </a>                                               
+                                                <div class="dropdown-menu">
+                                                    @if(signInManager.IsSignedIn(User))                            
+                                                        {  
+                                                            <a class="dropdown-item" href="~/Account/myprofile">My Profile</a>
+                                                            <a class="dropdown-item" href="~/Home/Settings">Settings</a>                                                            
+                                                            <a class="dropdown-item" href="~/UserAccount/Logout">
+                                                                <span>Log Out</span> 
+                                                                <i class="fa fa-sign-out"></i>
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="dropdown-item" href="~/UserAccount/Login">
+                                                                <span>Sign in</span> 
+                                                                <i class="fa fa-sign-out"></i>
+                                                            </a> 
+                                                        }
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- end topbar -->
+                    <!-- dashboard inner -->
+                    <div class="midde_cont">
+                        @RenderBody()
+                    </div>
+                    <!-- end dashboard inner -->
+                </div>
+            </div>
+        </div>
+
+      
+      <!-- jQuery -->
+      <script src="~/js/jquery.min.js"></script>
+      <script src="~/js/popper.min.js"></script>
+      <script src="~/js/bootstrap.min.js"></script>
+      <!-- wow animation -->
+      <script src="~/js/animate.js"></script>
+      <!-- select country -->
+      <script src="~/js/bootstrap-select.js"></script>
+      <!-- owl carousel -->
+      <script src="~/js/owl.carousel.js"></script> 
+      <!-- chart js -->
+      <script src="~/js/Chart.min.js"></script>
+      <script src="~/js/Chart.bundle.min.js"></script>
+      <script src="~/js/utils.js"></script>
+      <script src="~/js/analyser.js"></script>
+      <!-- nice scrollbar -->
+      <script src="~/js/perfect-scrollbar.min.js"></script>
+      <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script>
+      <!-- custom js -->
+      <script src="~/js/custom.js"></script>
+      <script src="~/js/chart_custom_style1.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" integrity="sha512-poSrvjfoBHxVw5Q2awEsya5daC0p00C8SKN74aVJrs7XLeZAi+3+13ahRhHm8zdAFbI2+/SUIrKYLvGBJf9H3A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!--DataTable-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+
+      <script src="~/js/site.js" asp-append-version="true"></script>
+    
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+        @* <script type="text/javascript">
+            $(document).ready( function () {
+                $('.data_grid').DataTable();
+            } );
+        </script> *@
+
+        <script type="text/javascript">
+            $('.Check').change(function(){
+            var data= $(this).val();
+            alert(data);
+            //asp-route-QuestionSubsectionID=data         
+            });
+
+            $('.Check')
+                .val('two')
+                .trigger('change');
+        </script>
+
+        @* <script type="text/javascript">
+            $('.check_').change(function(){
+           ViewBag.Message = "";
+                  
+            });
+           
+            $('.check_') .trigger('change');
+
+        </script> *@
+
+
+
+
+        <script type="text/javascript">
+
+            let grid_print = document.querySelectorAll('.grid_print');
+
+            for (let i = 0; i < grid_print.length; i++) {
+
+                //$(document).ready(function () {
+                //grid_print[i].style.opacity = 0;
+
+                $(document).ready(function () {
+                    $(grid_print[i]).prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
+                        dom: 'Bfrtip',
+                        'aoColumnDefs': [{ 'bSortable': false, 'aTargets': [0] }],
+                        'iDisplayLength': 10,
+                        buttons: [
+                            { extend: 'excel', text: 'Print Excel', className: 'exportExcel', filename: '_MySurfer', exportOptions: { modifier: { page: 'all' } } },
+                            { extend: 'csv', text: 'Print CSV', className: 'exportExcel', filename: '_MySurfer', exportOptions: { modifier: { page: 'all' } } },
+                            { extend: 'pdf', text: 'Print PDF', className: 'exportExcel', filename: '_MySurfer', orientation: 'portrait', pageSize: 'A4', exportOptions: { modifier: { page: 'all' }, columns: ':visible' } }
+                        ]
+                    });
+                });
+
+                //});
+            }
+
+        </script>
+
+        <script type="text/javascript">  
+            // Add the following code if you want the name of the file appear on select  
+            $(".custom-file-input").on("change", function () {  
+                var fileName = $(this).val().split("\\").pop();  
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);  
+            });  
+        </script> 
+
+    
+@*  
+    @Scripts.Render("~/bundles/jqueryval"); *@
+    <script type="text/javascript">
+            $('#Questions_').change(function () {
+                var selectedQuestion = $("#Questions_").val();
+                var optionSelect = $('#Options_');
+                optionSelect.empty();
+                if (selectedQuestion != null && selectedQuestion != '') {
+                    $.getJSON('@Url.Action("GetOptions2")', { QuestionID: SelectedQuestionID }, function (options) {
+                        if (options != null && !jQuery.isEmptyObject(options))
+                        {
+                            optionSelect.append($('<option/>', {
+                                value: null,
+                                text: ""
+                            }));
+                            $.each(options, function (index, option) {
+                                optionSelect.append($('<option/>', {
+                                    value: option.Value,
+                                    text: option.Text
+
+                                  
+                                }));
+                            });
+                        };
+                    });
+                }
+            });
+    </script>
+
+
+       @RenderSection("Scripts", required: false)
+       
+   </body>
+   
+
+</html>

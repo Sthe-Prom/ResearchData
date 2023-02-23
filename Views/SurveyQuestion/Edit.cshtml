@@ -1,0 +1,82 @@
+@model SurveyQuestionViewModel
+@{
+     ViewData["Title"] = "Edit Question Survey";
+    Layout = "_dashLayout";
+}
+
+<div class="text-center"> 
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Match Surveys with their respective Question</h1>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+   
+            <div class="row column1">              
+                
+                    <div class="col-md-12" style="margin: 0 auto; float: none;">
+                        <div class="white_shd full margin_bottom_30">
+                            <div class="full">
+                                <div class="heading1 margin_0">
+                                    <h2>Question Surveys Link</h2>
+                                    <hr />
+                                </div>
+                            </div>
+                           
+                            <div class="col-sm-12">   
+                                    <form asp-action="Edit" method="post">
+                                        <div class="row" >
+                                            
+                                            <input asp-for="SurveyQuestionID" type="hidden" />
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">  
+                                                    <label asp-for="SurveyID"></label> 
+                                                    <div><span asp-validation-for="SurveyID" class="text-danger"></span></div>    
+                                                    <select class="form-control" name="SurveyID" asp-for="SurveyID" asp-items="Model.SurveysSelect">
+                                                        <option value="">Select Survey</option>
+                                                    </select>      
+                                                </div>
+                                            </div> 
+                                        
+                                            <div class="col-sm-6">
+                                                <div class="form-group">  
+                                                    <label asp-for="QuestionID"></label> 
+                                                    <div><span asp-validation-for="QuestionID" class="text-danger"></span></div>    
+                                                    <select class="form-control" name="QuestionID" asp-for="QuestionID" asp-items="Model.QuestionsSelect">
+                                                        <option value="">Select Question</option>
+                                                    </select>      
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 text-center">
+                                                <div class="form-group">
+                                                    <div class="text-center">
+                                                        <button class="btn btn-primary" type="submit">Save</button>
+                                                        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>  
+
+                                    
+                            </div>
+                                                       
+                                
+                        </div>
+                        
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

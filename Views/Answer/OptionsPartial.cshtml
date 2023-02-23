@@ -1,0 +1,57 @@
+@model IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>
+
+@* @Html.DropDownList("Check", @Model, null, new{@class="dropdown"})
+ @model AnswerViewModel  *@
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group" id=OptionsPartial>  
+            <label>Option</label> 
+            @* <div><span class="text-danger"></span></div> *@
+            @Html.DropDownList("Check", @Model, "Select Q.. Option", new{@class="dropdown col-sm-12 form-control CheckOption", @id="OptionID", @name="OptionID", onchange="changeValue()"}) 
+            @* <select id="Check" class="form-control" name="OptionID" asp-for="SelectedOptionID" asp-items="Model.OptionsSelectN">
+                <option value="0">Select Option</option>                                                                                                               
+            </select>  *@
+             @* <input type="text" name="OptionID" id="OptionID" />  *@
+        </div>
+    </div>
+ </div>
+
+@* <script type="text/javascript">
+    function changeValue() {
+        textField = document.getElementById("OptionID");
+        textField.value =  $(this).val();//"110";//$("input[name=OptionID]").val($(this).find("option:selected").text()); 
+        }
+</script> *@
+
+
+@* <script type="text/javascript">
+    $("body").on("change", "#Check", function () {
+        $("input[name=OptionID]").val($(this).find("option:selected").text());
+    });
+</script>
+
+<script type="text/javascript">
+     @if (ViewBag.OptionID2 != null)
+        {
+            <script type="text/javascript">
+                $(function () {
+                    alert("@ViewBag.OptionID2");
+                });
+            </script>
+        }
+</script>  *@
+
+<script type="text/javascript">
+        $('.CheckOption').change(function(){
+        var data= $(this).val();
+        //alert(data);
+        //asp-route-QuestionSubsectionID=data  
+        textField = document.getElementById("OptionID");
+        textField.value = $(this).val();       
+        });
+
+        $('.CheckOption')
+            .val('two')
+            .trigger('change');
+</script>

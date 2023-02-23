@@ -1,0 +1,110 @@
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@model QuestionOptionViewModel
+
+@{
+    ViewData["Title"] = "Add Q.. Options";
+    Layout = "_dashLayout";
+}
+
+<div class="text-center"> 
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Add Question Option for: </h1>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+   
+            <div class="row column1">             
+                
+                <div class="col-md-12" style="margin: 0 auto; float: none;">
+                    <div class="white_shd full margin_bottom_30">
+                        <div class="full">
+                            <div class="heading1 margin_0">
+
+                                    @{
+                                        @* if(Model.Questions != null && Model.Questions.Count() > 0)
+                                        { *@
+                                            string Ques = "";                                            
+                                            foreach (var item in Model.Questions)
+                                            {
+                                                if(Convert.ToInt32(@HttpContextAccessor.HttpContext.Request.Query["QuestionID"][0]) == item.QuestionID)
+                                                {
+                                                    Ques += item.Question_;
+                                                }
+                                            }
+                                        }
+                                    
+                                <h2>Questions: @Ques</h2>
+                                <hr />
+                            </div>
+                        </div>
+
+
+                        <form asp-action="Add" method="post" class="text-center">
+
+                            <div asp-validation-summary="All"></div>
+
+                            <div class="container-fluid">
+
+                                <div class="row">
+                                  
+                                    <div class="col-12 col-md-10 col-lg-10 text-center" style="float:none; margin: 0 auto;">
+                                        
+                                        <div class="form-group">
+                                            <label asp-for="Option"></label>
+                                            <div><span asp-validation-for="Option" class="text-danger"></span></div>
+                                            <input asp-for="Option" class="form-control" />
+                                        </div>
+
+                                        
+                                     @* <div class="form-group">  
+                                            <label asp-for="@Model.QuestionOption.QuestionID"></label> 
+                                            <div><span asp-validation-for="@Model.QuestionOption.QuestionID" class="text-danger"></span></div>    
+                                            <select class="form-control" name="@Model.QuestionOption.QuestionID" asp-for="@Model.QuestionOption.QuestionID" asp-items="Model.QuestionSelect">
+                                                <option value="">Select Question</option>
+                                            </select>      
+                                        </div>  *@
+@* 
+                                        <div class="form-group">  
+                                            <label asp-for="QuestionID"></label> 
+                                            <div><span asp-validation-for="QuestionID" class="text-danger"></span></div>    
+                                            <select class="form-control" name="QuestionID" asp-for="QuestionID" asp-items="Model.QuestionSelect">
+                                                <option value="QuestionID">Select Question</option>                                                
+                                            </select>      
+                                        </div>  *@
+
+                                       
+                                        <input asp-for="QuestionID" value=@Convert.ToInt32(@HttpContextAccessor.HttpContext.Request.Query["QuestionID"][0]) type="hidden" class="form-control" />                                                                                
+                                        @* <label>@Convert.ToInt32(@HttpContextAccessor.HttpContext.Request.Query["QuestionID"][0])</label>  *@
+                                         @*<span>@HttpContextAccessor.HttpContext.Request.Query["QuestionID"][0]</span> *@
+                                        @* <input asp-for="QuestionID" value="@Qid" type="hidden" class="form-control" />  *@
+                                    
+                                        <div class="form-group">
+                                            <div class="text-center">
+                                                <button class="btn btn-primary" type="submit">Save</button>
+                                                <a href="~/QuestionOption/Index" class="btn btn-secondary">
+                                                    <i  class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;Back to Options
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

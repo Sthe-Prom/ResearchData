@@ -1,0 +1,61 @@
+@model QuestionOptionViewModel
+
+
+
+<div class="text-center">
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1 class="text-center">Add New Question Option</h1>
+                        <hr />
+
+
+                        <form asp-action="Add" method="post">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-8 col-lg-8" style="margin: 0 auto; float: none;">
+
+                                    <div class="form-group">
+                                        <label asp-for="Option"></label>
+                                        <div><span asp-validation-for="Option" class="text-danger"></span></div>
+                                        <textarea asp-for="Option" rows="3" cols="3" placeholder=" Question Option ..."
+                                            class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-8 col-lg-8" style="margin: 0 auto; float: none;">
+                                    <div class="form-group">
+                                        <label asp-for="QuestionID"></label>
+                                        <div><span asp-validation-for="QuestionID" class="text-danger"></span></div>
+                                        <select class="form-control" name="QuestionID" asp-for="QuestionID"
+                                            asp-items="@Model.QuestionSelect">
+                                            <option value="QuestionID">Select Question</option>
+                                        </select>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <div class="form-group">
+                                        <div class="text-center">
+                                            <button class="btn btn-primary" type="submit">Save</button>
+                                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+@model ReportsViewModel
+
+@{
+    ViewData["Title"] = "Survey Reports";
+    Layout = "_dashLayout";
+}
+
+<div class="text-center">
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Survey Data Reports</h1>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row column1">
+                <div class="col-md-12">
+                    <div class="white_shd full margin_bottom_30">
+                        <div class="full graph_head">
+                            <div class="heading1 margin_0">
+                                <h2>Surveys And Summaries</h2>
+                            </div>
+                        </div>
+                        <div class="full padding_infor_info">
+                            <div class="row">
+                                <iframe title="DW_IT1" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=3397e749-632c-4a84-83b2-c185c1dcb9ab&autoAuth=true&ctid=8efc1bb9-b90f-4a48-bf6c-ba0686193b80" frameborder="0" allowFullScreen="true"></iframe>
+                            </div>
+                            <br />
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- footer -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="footer">
+                        <p>Department of Computer Science Copyright - @System.DateTime.Now.Year. All rights reserved.
+                        </p>
+                        <p>
+                            &copy;DIRAP - IIS - UFS - <span><a asp-area="" asp-controller="Home"
+                                    asp-action="Privacy">Privacy</a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- end dashboard inner -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+@model IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>
+@{
+     ViewData["Title"] = "Research Data Answers";
+    Layout = "_Layout";
+}
+
+
+<script type="text/javascript"> 
+     @* $(document).ready(function{
+        GetOptions();
+    }); *@
+
+    function GetOptions(){
+        $.get("/Answer/GetOptionsTest",
+            { QuestionID: $("#Check").val()
+                },
+                function(data) { 
+                    $("#OptionsPartial").html(data);           
+        
+        });
+    }
+</script>
+
+<div class="row">
+
+    <div class="col-sm">
+
+        @Html.DropDownList("Check", @Model, null, new{ @class = "dropdown", onchange="GetOptions()"}) 
+         @* @Html.DropDownListFor((x => @Model.QuestionID), new Microsoft.AspNetCore.Mvc.Rendering.SelectList(@Model, "Value", "Text"), "", htmlAttributes: new { @class = "form-control", @id = "Check"}) *@
+
+    </div>
+    @* @Html.DropDownListFor((x => Model.QuestionID), new Microsoft.AspNetCore.Mvc.Rendering.SelectList(@Model, "Value", "Text"), "", htmlAttributes: new { @class = "form-control", @id = "Check"})
+    @Html.DropDownListFor((x => Model.QuestionID), new Microsoft.AspNetCore.Mvc.Rendering.SelectList(@Model, "Value", "Text"), "", htmlAttributes: new { @class = "form-control", @id = "Check"}) *@
+
+
+    <div class="col-sm">
+        <div id="OptionsPartial">
+          
+        </div>
+    </div>
+</div>
+
+
+@* @Html.DropDownList("Check", new Microsoft.AspNetCore.Mvc.Rendering.SelectList(Model.QuestionsSelect2, "Value", "Text"), "Select Question", new { @class = "form-control, dropdown" }) *@
+

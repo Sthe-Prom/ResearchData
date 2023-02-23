@@ -1,0 +1,70 @@
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@model QuestionOptionViewModel2
+
+@{
+    ViewData["Title"] = "Edit Q.. Options";
+    Layout = "_dashLayout";
+}
+
+<div class="row">
+    <div class="col-sm">
+        <div class="midde_cont">
+            <div class="container-fluid">
+                <div class="row column1">
+                    <form asp-action="Edit" method="post" class="text-center">
+
+                        <div asp-validation-summary="All"></div>
+
+                        <div class="container-fluid">
+
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <br />
+                                    <h1>Edit Question Option</h1>
+                                    <hr />
+                                </div>
+
+                                <div class="col-12 col-md-10 col-lg-10 text-center" style="float:none; margin: 0 auto;">
+                                    
+                                    <input asp-for="QuestionOptionID" type="hidden" class="form-control" />                                    
+
+                                    <div class="form-group">
+                                        <label asp-for="Option"></label>
+                                        <div><span asp-validation-for="Option" class="text-danger"></span></div>
+                                        <input asp-for="Option" class="form-control" />
+                                    </div>
+                       
+                                    <div class="form-group">  
+                                            <label asp-for="QuestionID"></label> 
+                                            <div><span asp-validation-for="QuestionID" class="text-danger"></span></div>    
+                                            <select class="form-control" name="QuestionID" asp-for="QuestionID" asp-items="Model.QuestionSelect">
+                                                <option value="QuestionID">Select Question</option>
+                                                <option value="5">Nationality</option>
+                                            </select>      
+                                        </div>
+                                  
+                                  
+                                    @* <input asp-for="@Model.QuestionOption.QuestionID" class="form-control" />  *@
+                                
+                                    <div class="form-group">
+                                        <div class="text-center">
+                                            <button class="btn btn-primary" type="submit">Save</button>
+                                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

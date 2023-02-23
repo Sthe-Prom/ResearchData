@@ -1,0 +1,81 @@
+@model QuestionTypeViewModel
+@{
+     ViewData["Title"] = "Question Type";
+    Layout = "_dashLayout";
+}
+
+<div class="text-center"> 
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Manage Survey Questions Types</h1>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+   
+                <div class="form-group text-right">
+                    <span><a href="~/Question/Index" class="btn btn-outline-primary">Manage Questions</a></span>
+                    <span><button type="submit" onclick="AddQType()" class="btn btn-outline-info">Add New Question Type</button></span>
+                    <hr />                    
+                </div>
+                    
+                <table class="table table-striped table-condensed table-bordered">
+                    <tr>                                                          
+                        <th>Question Type</th>
+                        <th>Question Type ID</th>
+                        <th class="text-info h5">Action</th> 
+                    </tr>
+                    
+                        @{
+                            foreach(var item in Model.QuestionTypes)
+                            {
+                                <tr>
+                                <td>@item.QuestionTypeName</td>
+                                <td>@item.QuestionTypeID</td>
+                              
+                                <td class="text-center">
+                                    <form asp-action="Delete" method="post">
+                                        <a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-QuestionTypeID="@item.QuestionTypeID">
+                                            Edit
+                                        </a>
+                                        <input type="hidden" name="QuestionTypeID" value="@item.QuestionTypeID" />
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                                </tr>
+                            }
+                        }
+                    
+                </table>
+
+                <hr />
+                <div class="row column1">
+                  
+                        <div class="col-sm-12 col-md-12 col-lg-12" id="id_AddQType" style="display:none;">                       
+                            @await Component.InvokeAsync("AddQType")                        
+                        </div>
+                   
+                </div>
+                
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    function AddQType() {
+        var x = document.getElementById("id_AddQType");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }    
+</script>

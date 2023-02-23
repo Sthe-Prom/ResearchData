@@ -1,0 +1,96 @@
+@model QuestionViewModel
+@{
+     ViewData["Title"] = "Add Survey Question";
+    Layout = "_dashLayout";
+}
+
+<div class="text-center"> 
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Add New Survey Question</h1>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+   
+            <div class="row column1">
+
+              
+                
+                    <div class="col-md-12" style="margin: 0 auto; float: none;">
+                        <div class="white_shd full margin_bottom_30">
+                            <div class="full">
+                                <div class="heading1 margin_0">
+                                    <h2>Questions</h2>
+                                    <hr />
+                                </div>
+                            </div>
+                           
+                                    <div class="col-sm-12">   
+                                          <form asp-action="Add" method="post">
+                                                <div class="row" >
+                                                    <div class="col-sm-10" style="margin: 0 auto; float: none;">
+                                                        <div class="form-group">
+                                                            <label>Question</label>
+                                                            <div><span asp-validation-for="QuestionTypeID" class="text-danger"></span></div>
+                                                            <textarea asp-for="Question_" rows="3" placeholder="  Question..." class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class="col-sm-6" >
+                                                        <div class="form-group">  
+                                                            <label asp-for="QuestionTypeID"></label> 
+                                                            <div><span asp-validation-for="QuestionTypeID" class="text-danger"></span></div>    
+                                                            <select class="form-control" name="QuestionTypeID" asp-for="QuestionTypeID" asp-items="Model.QuestionTypes">
+                                                                <option value="">Select Q.. Type</option>
+                                                            </select>      
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">  
+                                                            <label asp-for="QuestionAbbr"></label> 
+                                                            <div><span asp-validation-for="QuestionAbbr" class="text-danger"></span></div>    
+                                                            <input asp-for="QuestionAbbr" type="text" class="form-control" />
+                                                        </div>
+                                                    </div>
+    
+                                                    @* <div class="col-sm-6">
+                                                        <div class="form-group">  
+                                                            <label asp-for="SurveyID"></label> 
+                                                            <div><span asp-validation-for="SurveyID" class="text-danger"></span></div>    
+                                                            <select class="form-control" name="SurveyID" asp-for="SurveyID" asp-items="Model.Surveys">
+                                                                <option value="">Select Survey</option>
+                                                            </select>      
+                                                        </div>
+                                                    </div> *@
+                                                     
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-12 text-center">
+                                                        <div class="form-group">
+                                                            <div class="text-center">
+                                                                <button class="btn btn-primary" type="submit">Save</button>
+                                                                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>  
+                                    </div>
+                                
+                        </div>
+                    </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

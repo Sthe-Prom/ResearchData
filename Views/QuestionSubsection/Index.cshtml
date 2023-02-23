@@ -1,0 +1,164 @@
+@model QuestionSubsectionViewModel
+@{
+     ViewData["Title"] = "Question Subsection";
+    Layout = "_dashLayout";
+}
+
+<div class="text-center"> 
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Match Questions with their respective subsections</h1>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+   
+            <div class="row column1">              
+                
+                    <div class="col-md-12" style="margin: 0 auto; float: none;">
+                        <div class="white_shd full margin_bottom_30">
+                            <div class="full">
+                                <div class="heading1 margin_0">
+                                    <h2>Questions</h2>
+                                    <hr />
+                                </div>
+                            </div>
+                           
+                            <div class="col-sm-12">   
+                                    <form asp-action="Add" method="post">
+                                        <div class="row" >
+                                            
+                                        
+                                            <div class="col-sm-6">
+                                                <div class="form-group">  
+                                                    <label asp-for="QuestionID"></label> 
+                                                    <div><span asp-validation-for="QuestionID" class="text-danger"></span></div>    
+                                                    <select class="form-control" name="QuestionID" asp-for="QuestionID" asp-items="Model.QuestionsSelect">
+                                                        <option value="">Select Question</option>
+                                                    </select>      
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">  
+                                                    <label asp-for="SubsectionID"></label> 
+                                                    <div><span asp-validation-for="SubsectionID" class="text-danger"></span></div>    
+                                                    <select class="form-control" name="SubsectionID" asp-for="SubsectionID" asp-items="Model.SubsectionsSelect">
+                                                        <option value="">Select subsection</option>
+                                                    </select>      
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 text-center">
+                                                <div class="form-group">
+                                                    <div class="text-center">
+                                                        <button class="btn btn-primary" type="submit">Save</button>
+                                                        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>  
+
+                                    
+                            </div>
+                                                       
+                                
+                        </div>
+                        
+                    </div>
+                    
+
+                    <div class="col-sm-12">
+                        <div class="form-group text-right">
+                            <span><a href="~/Question/Index" class="btn btn-outline-info">Return to Questions</a></span>                                                             
+                            <hr />
+                        </div>
+                        <table class="table table-condensed table-bordered">
+                            <tr>
+                                <th>Section</th>
+                                <th>Subsection</th>
+                                <th>Question</th>
+                                <th class="h5 text-info">Action</th>
+                            </tr>
+                            
+                             @* var client_fibre = client_props.Join(fibre_props,
+                                                         cp => cp.Property_ID,
+                                                         fp => fp.Property_ID,
+                                                         (cp, fp) => new { client_properties = cp, fibre_properties = fp })
+                                                          .Select(cp_fp => new
+                                                          {
+                                                              cp_fp.client_properties.Property_ID,
+
+                                                          }); *@
+
+                           
+
+                                @{
+
+                                    var QuesSections = from subsection in Model.Subsections
+                                                join QuestionSubsection in Model.QuestionSubsections
+                                                on subsection.SubsectionID equals QuestionSubsection.SubsectionID
+                                                join section in Model.Sections 
+                                                on subsection.SectionID equals section.SectionID
+                                                join question in Model.Questions
+                                                on QuestionSubsection.QuestionID equals question.QuestionID
+                                                select new
+                                                {
+                                                    section.SectionName,
+                                                    subsection.SubsectionName,
+                                                    question.Question_,
+                                                    QuestionSubsection.QuestionSubsectionID
+                                                };
+
+                                    if( Model.QuestionSubsections != null && Model.QuestionSubsections.Count() != 0)
+                                    {
+                                        @foreach (var item in QuesSections)
+                                        {
+                                            <tr>
+                                            <td>@item.SectionName</td>
+                                            <td>@item.SubsectionName</td>
+                                            <td>@item.Question_</td>
+                                            <td class="text-center">
+                                                <form asp-action="Delete" method="post">
+                                                    <div class="row">
+                                                        @* <div class="col-sm-12 col-md-12 col-lg-12">
+                                                            <span class="col-sm-4 col-md-4 col-lg-4" style="margin: 0 auto; float: none;">
+                                                                <a asp-action="Edit" class="" asp-route-QuestionSubsectionID="@item.QuestionSubsectionID">
+                                                                    <i class="fa fa-edit" style="color: #00675A;"></i>
+                                                                </a>
+                                                            </span>
+                                                        </div> *@
+                                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                                            <span class="col-sm-12 col-md-12 col-lg-12" style="margin: 0 auto; float: none;">
+                                                                <input type="hidden" name="QuestionSubsectionID" value="@item.QuestionSubsectionID" />
+                                                                <button type="submit" class="">
+                                                                    <i class="fa fa-trash" style="color: #A71930;" aria-hidden="true"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                                </tr>
+                                        }
+                                    }
+                                }
+                            
+                        </table>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

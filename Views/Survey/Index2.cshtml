@@ -1,0 +1,11 @@
+@model AccountsViewModel
+
+@{
+    Layout = "_dashLayout";
+}
+
+<div class="row">
+    <select id="ddlFruits" class="form-control" asp-items="@Model.Accounts">
+        <option value="0">Please select</option>
+    </select>
+</div>

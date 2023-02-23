@@ -1,0 +1,168 @@
+@model SurveyQuestionViewModel
+@{
+     ViewData["Title"] = "Survey Question";
+    Layout = "_dashLayout";
+}
+
+<div class="text-center"> 
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Match Surveys with their respective Question</h1>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+   
+            <div class="row column1">              
+                
+                    <div class="col-md-12" style="margin: 0 auto; float: none;">
+                        <div class="white_shd full margin_bottom_30">
+                            <div class="full">
+                                <div class="heading1 margin_0">
+                                    <h2>Question Surveys Link</h2>
+                                    <hr />
+                                </div>
+                            </div>
+                           
+                            <div class="col-sm-12">   
+                                    <form asp-action="Add" method="post">
+                                        <div class="row" >
+                                            
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">  
+                                                    <label asp-for="SurveyID"></label> 
+                                                    <div><span asp-validation-for="SurveyID" class="text-danger"></span></div>    
+                                                    <select class="form-control" name="SurveyID" asp-for="SurveyID" asp-items="Model.SurveysSelect">
+                                                        <option value="">Select Survey</option>
+                                                    </select>      
+                                                </div>
+                                            </div> 
+                                        
+                                            <div class="col-sm-6">
+                                                <div class="form-group">  
+                                                    <label asp-for="QuestionID"></label> 
+                                                    <div><span asp-validation-for="QuestionID" class="text-danger"></span></div>    
+                                                    <select class="form-control" name="QuestionID" asp-for="QuestionID" asp-items="Model.QuestionsSelect">
+                                                        <option value="">Select Question</option>
+                                                    </select>      
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 text-center">
+                                                <div class="form-group">
+                                                    <div class="text-center">
+                                                        <button class="btn btn-primary" type="submit">Save</button>
+                                                        <a href="~/Question/Index" class="btn btn-secondary">Cancel</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>  
+
+                                    
+                            </div>
+                                                       
+                                
+                        </div>
+                        
+                    </div>
+                        
+                        <div class="col-sm-12">
+                            <div class="form-group text-right">                            
+                                <span>
+                                    <a href="~/Question/Index" class="btn btn-outline-info">Manage Questions</a>                            
+                                </span>
+                                <hr />
+                            </div>
+                            <table class="table table-condensed table-bordered">
+                                <tr>
+                                    <th>Survey</th>
+                                    <th>Question</th>
+                                    <th class="h5 text-info">Action</th>
+                                </tr>
+                                
+                                    @{
+                                        if( Model.SurveyQuestions != null && Model.SurveyQuestions.Count() != 0)
+                                        {
+                                            
+                                            var SQ = Model.SurveyQuestions;
+                                            var Surveys = Model.Surveys;
+                                            var Questions = Model.Questions;
+
+                                            @* var client_fibre = client_props.Join(fibre_props,
+                                                         cp => cp.Property_ID,
+                                                         fp => fp.Property_ID,
+                                                         (cp, fp) => new { client_properties = cp, fibre_properties = fp })
+                                                          .Select(cp_fp => new
+                                                          {
+                                                              cp_fp.client_properties.Property_ID,
+
+                                                          }); *@
+
+                                            var survey_sq = SQ.Join(Surveys,
+                                                        sq => sq.SurveyID,
+                                                        surv => surv.SurveyID,
+                                                        (sq, surv) => new {surv_ques_ = sq, surveys_ = surv })
+                                                        .Select(sq_surv => new
+                                                        {
+                                                            sq_surv.surv_ques_.SurveyID,
+                                                            sq_surv.surveys_.SurveyName,
+                                                            sq_surv.surv_ques_.QuestionID,
+                                                            sq_surv.surv_ques_.SurveyQuestionID
+                                                        });
+
+                                            var sq_survey_sq = survey_sq.Join(Questions,
+                                                        q => q.QuestionID,
+                                                        surv_sq => surv_sq.QuestionID,
+                                                        (q, surv_sq) => new {s_question_ = q, survey_sq_ = surv_sq})
+                                                        .Select(question_survey_sq => new
+                                                        {
+                                                            question_survey_sq.s_question_.QuestionID,
+                                                            question_survey_sq.survey_sq_.Question_,
+                                                            question_survey_sq.s_question_.SurveyID, 
+                                                            question_survey_sq.s_question_.SurveyName,
+                                                            question_survey_sq.s_question_.SurveyQuestionID
+                                                        });
+
+
+                                            @foreach (var item in sq_survey_sq)
+                                            {
+                                                <tr>
+                                                <td>@item.SurveyName</td> 
+                                                <td>@item.Question_</td>
+                                                <td>
+                                                    <form asp-action="Delete" method="post">
+                                                        <a asp-action="Edit" class="" asp-route-SurveyQuestionID="@item.SurveyQuestionID">
+                                                            <span><i class="fa fa-edit"></i></span>
+                                                        </a>
+                                                        <input type="hidden" name="SurveyQuestionID" value="@item.SurveyQuestionID" />
+                                                        <a type="submit" class="">
+                                                            <i class="fa fa-trash" style="color: #A71930;" aria-hidden="true"></i>
+                                                        </a>
+                                                    </form>
+                                                </td>
+                                                 </tr>
+                                            }
+                                        }
+                                    }
+                               
+                            </table>
+                            <hr />
+                        </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

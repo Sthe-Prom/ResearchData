@@ -1,0 +1,94 @@
+@model SubsectionViewModel
+@{
+     ViewData["Title"] = "Question Sections";
+    Layout = "_dashLayout";
+}
+
+<div class="text-center"> 
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Manage Survey Questions & Sections</h1>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+   
+                <div class="form-group text-right">
+                    <span><button type="submit" onclick="AddSec()" class="btn btn-outline-info">Add Section</button></span>
+                     <span>
+                          <a href="~/Subsection/Index" class="btn btn-outline-info">Manage Sub-Section</a>
+                          @* <button type="submit" onclick="AddSubSec()" class="btn btn-outline-info">Add Sub-Section</button> *@
+                    </span>
+                    <hr />
+                    
+                </div>
+
+                <div class="col-sm-12 col-md-8 col-lg-8" id="id_AddSec" style="display:none;">
+                    <h5 class="text-center">Question Section Name</h5>
+                    <hr /><br />
+                     @await Component.InvokeAsync("AddSec")                         
+                </div>
+
+                <div class="col-sm-12 col-md-8 col-lg-8" id="id_AddSubSec" style="display:none;">
+                    <h5 class="text-center">Question Sub-Section Name</h5>
+                    <hr /><br />
+                     @* @await Component.InvokeAsync("AddSubSec")                          *@
+                </div>
+                    
+                <table class="table table-striped table-bordered table-sm">
+                    <tr>                                                          
+                        <th class="text-center">Question Section Name</th> 
+                    </tr>
+                 @{
+                    foreach (var item in Model.Sections)
+                    {
+                        <tr>                          
+                            <td class="text-center">@item.SectionName</td>                           
+                            <td class="text-center">
+                                <form asp-action="Delete" method="Post">
+                                    <a asp-action="Edit" class="btn btn-outline-warning btn-sm" asp-route-SectionID="@item.SectionID">
+                                        Edit
+                                    </a>
+                                    <button type="submit" type="submit" class="btn btn-danger btn-sm">
+                                        Delete
+                                    </button>
+                                </form> 
+                            </td>
+                            <td>
+                                
+                                
+                            </td>
+
+                        </tr>
+                    }
+                }
+                </table>
+
+                
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function AddSec() {
+        var x = document.getElementById("id_AddSec");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    function AddSubSec() {
+        var x = document.getElementById("id_AddSubSec");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>

@@ -1,0 +1,77 @@
+@model SubsectionViewModel2
+@{
+     ViewData["Title"] = "SubSection";
+    Layout = "_dashLayout";
+}
+
+<div class="text-center"> 
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Manage Sub-Section</h1>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+   
+            <div class="row column1">                
+            
+                 <div class="col-12 col-md-10 col-lg-10 text-center" style="float:none; margin: 0 auto;">
+
+                    <div class="form-group text-right">
+                            <span><a href="~/Subsection/Add" class="btn btn-outline-info">Add Sub Sections</a></span>
+                            <span><a href="~/Section/Index" class="btn btn-outline-info">Manage Sections</a></span>
+                        <hr />
+                    </div>
+                        <div class="col-md-12">
+                            <table class="table table-borderd table-condensed">
+                                <tr>
+                                    <th>Sub-section Name</th>
+                                    <th class="h5 text-info">Action</th>                       
+                                </tr>                  
+                            
+                                @foreach (var item in Model.Subsections)
+                                {   
+                                    <tr>                   
+                                    <td>@item.SubsectionName</td>
+                                        <td>
+                                            <form asp-action="Delete" method="post">
+                                                <a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-SubsectionID="@item.SubsectionID">
+                                                    Edit
+                                                </a>
+                                                <input type="hidden" name="SubsectionID" value="@item.SubsectionID" />
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </td>                     
+                                    </tr>
+                                                                    
+
+                                }
+                            </table>
+                        </div>
+             </div>
+                
+            </div>      
+             
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+   
+    function AddSubSec() {
+        var x = document.getElementById("id_AddSubSec");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+

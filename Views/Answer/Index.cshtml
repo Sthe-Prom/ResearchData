@@ -1,0 +1,336 @@
+@model AnswerViewModel
+@{
+     ViewData["Title"] = "Research Data Answers";
+    Layout = "_dashLayout";
+}
+
+<script type="text/javascript"> 
+     @* $(document).ready(function{
+        GetOptions();
+    }); *@
+
+    function GetOptions(){
+        $.get("/Answer/GetOptionsTest",
+            { QuestionID: $("#Check").val()
+                },
+                function(data) { 
+                    $("#OptionsPartial").html(data);          
+        
+        });
+    }
+</script>
+
+@* <script type="text/javascript">
+   
+    $("body").on("change", "#Check", function () {
+        document.getElementById("OptionID").value = $("input[name=OptionID]").val($(this).find("option:selected").text());
+    
+     @* @if (x != null)
+        {
+            <script type="text/javascript">
+                $(function () {
+                    alert(x);
+                });
+            </script>
+        }
+
+        });         
+
+</script>  *@
+
+@* <script type="text/javascript">
+    function changeValue() {
+        textField = document.getElementById("OptionID");
+        textField.value = "110";//("input[name=OptionID]").val($(this).find("option:selected").text()); 
+        }
+</script> *@
+
+@* <script type="text/javascript">
+    function changeValue() {
+        textField = document.getElementById("OptionID");
+        textField.value =  $(this).val();//"110";//$("input[name=OptionID]").val($(this).find("option:selected").text()); 
+        }
+   
+</script> *@
+
+
+<div class="text-center"> 
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Manage Research Data Answer/Responses</h1>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+   
+            <div class="row column1">              
+                
+                    <div class="col-md-12" style="margin: 0 auto; float: none;">
+                        <div class="white_shd full margin_bottom_30">
+                            <div class="full">
+                                <div class="heading1 margin_0 mt-2">
+                                    <h2>Upload survey responses to specific answers, options and scale options</h2>
+                                    <hr />
+                                    <span class="text-left alert alert-primary" role="alert">
+                                        <p><u><strong>Options:</strong></u> Survey Reponses as per multiple choice 
+                                            (tick all applicable / tick one) answers.</p>
+                                        <p><u><strong>Scale Options:</strong></u> Research data responses for segmented 
+                                            and scale (1 - 5) / Strongly Agree - Strongly Disagree Question.</p>
+                                    </span>
+                                    <hr />
+                                </div>
+                            </div>
+                           
+                            <div class="col-sm-12">   
+                                    @* @using (Html.BeginForm("UploadExcel", "Answer", Microsoft.AspNetCore.Mvc.Rendering.FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return myFunction()" })) *@
+                                    <form asp-controller="Answer" asp-action="Index" method="post" enctype="multipart/form-data">
+                                    
+                                        <div class="row" >                                            
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">  
+                                                    <div><span asp-validation-for="SurveyID" class="text-danger"></span></div> 
+                                                    <label asp-for="SurveyID">Survey</label>                                                       
+                                                    <select id="surveys" class="form-control" name="SurveyID" asp-for="SurveyID" asp-items="Model.SurveysSelect">
+                                                        <option value="">Select Survey</option>
+                                                    </select>      
+                                                </div>
+                                            </div> 
+                                        
+                                            <div class="col-sm-6">
+                                                <div class="form-group">  
+                                                    <label asp-for="QuestionID">Question</label> 
+                                                    <div><span asp-validation-for="QuestionID" class="text-danger"></span></div>     
+                                                    <select id="Check"  class="form-control" name="QuestionID" asp-for="QuestionID" asp-items="Model.QuestionsSelect4" onchange="GetOptions()"  >
+                                                        <option value="">Select Question</option>                                                        
+                                                    </select>         
+                                                    @* @Html.DropDownListFor(x => Model.SelectedQuestionID, new Microsoft.AspNetCore.Mvc.Rendering.SelectList(Model.QuestionsSelect, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id = "Questions_"})  *@
+                                                    
+                                                    @* @Html.LabelFor(x => Model.SelectedQuestionID, htmlAttributes: new { @class = "" })
+                                                    <div class="">
+                                                        @Html.DropDownListFor(x => Model.SelectedQuestionID, new Microsoft.AspNetCore.Mvc.Rendering.SelectList(Model.QuestionsSelect2, "Value", "Text"), "", htmlAttributes: new { @class = "form-control", @id = "Questions_"})
+                                                        @Html.ValidationMessageFor(x => x.SelectedQuestionID, "", new { @class = "text-danger" })
+                                                    </div>   *@
+                                                
+                                                    @* @Html.DropDownList("Check", @Model.QuestionsSelect4, null, new{ @class = "dropdown form-group", onchange="GetOptions()"})  *@
+
+                                                </div>
+                                            </div>                                         
+
+                                            <div class="col">
+                                                <div class="col-sm-8" style="margin: 0 auto; float: none;">
+                                                    <h6>Optional Research Responses</h6>
+                                                    <hr />
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        @* <button onclick="changeValue()">Change Value</button> *@
+                                                        <input type="hidden" name="OptionID" id="OptionID"  /> 
+                                                         @* @Html.Hidden("OptionID", (object)ViewBag.OptionID); *@
+                                                        @* <button onclick="changeValue()">Change Value</button> *@
+                                                        <div class="form-group" id=OptionsPartial>  
+                                                            <label>Option</label> 
+                                                            @* <div><span asp-validation-for="OptionID" class="text-danger"></span></div>  *@
+                                                               
+                                                             <select id="OptionTemp" class="form-control " >
+                                                                <option value="0">Select Option</option>                                                                                                               
+                                                            </select>                                                             
+                                                          
+                                                            @* @Html.DropDownListFor(x => Model.SelectedOptionID, new Microsoft.AspNetCore.Mvc.Rendering.SelectList(Model.OptionsSelect2, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id = "Options_"})  *@
+
+                                                            @* @Html.LabelFor(x => Model.SelectedOptionID, htmlAttributes: new { @class = "" })
+                                                            <div class="">
+                                                                @Html.DropDownListFor(x => Model.SelectedOptionID, new Microsoft.AspNetCore.Mvc.Rendering.SelectList(Model.OptionsSelect2, "Value", "Text"),"", htmlAttributes: new { @class = "form-control", @id = "Options_" })
+                                                                @Html.ValidationMessageFor(x => x.SelectedOptionID, "", new { @class = "text-danger" }) 
+                                                            </div>  *@
+                                                        </div>
+                                                    </div> 
+                                                
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">  
+                                                             @* <div><span asp-validation-for="ScaleOptionID" class="text-danger"></span></div>     *@
+                                                            <label asp-for="ScaleOptionID">Scale Option</label> 
+                                                           
+                                                            <select class="form-control check" name="ScaleOptionID" asp-for="ScaleOptionID" >
+                                                                <option value="0">Select Scale Option</option>
+                                                                <option value="1">Very Satisfied</option>
+                                                                <option value="2">Satisfied</option>
+                                                                <option value="3">Neutral</option>
+                                                                <option value="4">Disatisfied</option>
+                                                                <option value="5">Very Disatisfied</option>
+                                                                <option value="11">Strongly Agree</option>
+                                                                <option value="12">Agree</option>
+                                                                <option value="13">Neutral</option>
+                                                                <option value="14">Disagree</option>
+                                                                <option value="15">Strongly Disagree</option>                                                                
+                                                            </select>      
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>                                          
+                                            
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 text-center">                                              
+                                                 <div class="form-group text-center">
+                                                    <div class="col-md-6 offset-md-3">
+                                                        <span>
+                                                            <p>Upload Excel File</p>
+                                                            <h6 style="color: green;">@ViewBag.Message</h6>
+                                                        </span>
+                                                        <div class="">                                                            
+                                                                <div class="custom-file">
+                                                                    <input type="file" name="postedFile" class="custom-file-input" id="customFile" type="file" />
+                                                                    <label class="custom-file-label" for="customFile">Choose file</label>                                                                   
+                                                                </div>                                                               
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>  
+                                                <div class="form-group text-center">  
+                                                    <div class="col-md-6 offset-md-3">                                                                                                                         
+                                                        <input type="submit" class="btn-btn-outline-success form-control" value="Import" />
+                                                        <a href="~/Question/Index" class="btn btn-secondary">Cancel</a>                                                            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    
+                            </div>
+                                                       
+                                
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-md-12" style="margin-bottom: 20px;">
+                        <div class="white_shd full margin_bottom_30">
+                            <div class="full">
+                                <div class="heading1 margin_0 mt-2">
+                                    <h1>How it works</h1>
+                                    <hr />
+                                    <span class="alert alert-primary">                             
+                                        <h2 class="card-text">3 Eesy Stepts</h2>
+                                        <h6><i style="font-size: 24px;" class="fa fa-info-circle"></i>
+                                            Please note that analytics through Power BI dashboards and Repoers will take 
+                                                            from 2 - 5 working days.
+                                        </h6>
+                                    </span>
+                                    <hr />
+                                </div>
+                            </div>
+                           
+                            <div class="col-sm-12">                        
+                                <div class="row" style="margin: 20px; padding: 5px;">   
+                                    <div class="col-sm-4">
+                                        <div class="card">
+                                            <div class="card-body">  
+                                                <h1 class="card-title">1. Template</h1>
+                                                <p class="card-text">Use the template provided to load your data and have it ready for analysis</p>                                      
+                                                <a href="~/Answer/DownloadExcel" class="btn btn-outline-success"><i class="fa fa-file-excel-o"></i>&nbsp;Download Template</a>                                                      
+                                            </div>
+                                        </div> 
+                                    </div>                        
+                                    <div class="col-sm-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h1 class="card-title">2. Upload File</h1>
+                                                <p class="card-text">Your data will be safely handled and no extra manipulation will be done on the raw data.</p>                                                       
+                                                @* <a href="#" class="btn btn-outline-success">Upload Data</a>  *@
+                                                <span style="color: green;" class="panel"> 
+                                                    <i class="fa fa-file-excel-o"></i>&nbsp; <i class="fa fa-upload"></i>                                                                                               
+                                                </span>
+                                            </div>
+                                        </div> 
+                                    </div> 
+                                    <div class="col-sm-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h1 class="card-title">3. See Results</h1>
+                                                <h6 class="card-title">Summaries of the data are available immediately.</h6>
+                                                <p class="card-text">View basic analytics of your data</p>                                                       
+                                                <a href="~/Reports/Index" class="btn btn-outline-success">See Results</a>                                                       
+                                            </div>
+                                        </div> 
+                                    </div>                           
+                                </div>
+                            </div>                                                       
+                                
+                        </div>
+                        
+                    </div>
+                   
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* <script>
+    function changeReport(dropDownList) {
+        var selectedReport = dropDownList.options[dropDownList.selectedIndex];
+        window.location = ("?QID=" + questions.value);
+    }
+</script> *@
+
+@* <select id="SelectedReport" class="Check" onchange="changeReport(this)">
+    <option value="foo">foo</option>
+    <option value="bar">bar</option>
+    <option value="baz">baz</option>
+</select> *@
+
+@* <script type="text/javascript">  
+
+    $(".check").change(function () {  
+        var QuestionID = $(".check").val();  
+        if (QuestionID == null ") {  
+            alert("Please Select Option");  
+            return;  
+        }  
+
+    $("input[id='QuestionID']").val(QuestionID);  
+        if (QuestionID != null || QuestionID != "") {  
+            $.ajax({  
+                url: "/Answer/Index",  
+                type: "POST",  
+                data: JSON.stringify({ 'QuestionID': QuestionID }),  
+                dataType: "json",  
+                traditional: true,  
+                contentType: "application/json; charset=utf-8",  
+                success: function (result) {  
+                    //debugger;  
+                    var listItems = "";  
+                    var list = "";  
+                    var a = @Model.OptionsSelect; //result.bindingAddresses.OffAdd;  
+                    //var s = //result.bindingAddresses.siteAdd;  
+                    for (i in a) {  
+                        listItems += "<option value='" + a[i].Value + "'>" + a[i].Text + "</option>";  
+                    }  
+                    @* $("#OfficeId").html(listItems);  
+    
+                    for (j in s) {  
+                        list += "<option value='" + s[j].Value + "'>" + s[j].Text + "</option>";  
+                    }  
+                    $("#SiteId").html(list);   
+                },  
+                error: function () {  
+                    alert("An error has occured!!!");  
+                }  
+            });  
+        }); 
+</script>  *@
+
+
+
+
+
+
+
+

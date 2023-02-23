@@ -1,0 +1,123 @@
+@model QuestionViewModel
+@{
+     ViewData["Title"] = "Manage Questions";
+    Layout = "_dashLayout";
+}
+
+<div class="text-center"> 
+
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Manage Survey Questions & Question Sections</h1>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+   
+  
+                       
+             <!-- row -->
+            <div class="row column1">
+                <div class="col-md-12">
+                    <div class="white_shd full margin_bottom_30">
+                        <div class="full graph_head">
+                            <div class="heading1 margin_0">
+                                <h2>Research Data Summaries</h2>
+                            </div>
+                        </div>
+
+                        
+                            <div class="col-12 col-md-12 col-lg-12 text-center">
+                                @* <div class="col-md-4 col-sm-12 col-lg-4 ">
+                                    <div class="contact_blog">
+                                        <h4 class="brief">Number of Surveys</h4>
+                                        <div class="contact_inner">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end column contact blog -->
+                                <!-- column contact -->
+                                <div class="col-md-4 col-sm-12 col-lg-4">
+                                    <div class="contact_blog">
+                                        <h4 class="brief">Number of Quesions</h4>
+                                        <div class="contact_inner">
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- column contact -->
+                                <div class="col-md-4 col-sm-12 col-lg-4 ">
+                                    <div class="contact_blog">
+                                        <h4 class="brief">Options per Question</h4>
+                                        <div class="contact_inner">
+                                            
+                                        </div>
+                                    </div>
+                                </div> *@
+
+                                <iframe title="DW_IT1" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=3397e749-632c-4a84-83b2-c185c1dcb9ab&autoAuth=true&ctid=8efc1bb9-b90f-4a48-bf6c-ba0686193b80" frameborder="0" allowFullScreen="true"></iframe>
+                            </div>
+                        </div>
+
+                    </div>
+
+                   <div class="white_shd full margin_bottom_30">
+                        <div class="full graph_head">
+                            <div class="col-12 col-md-12 col-lg-12 text-center" style="float:none; margin: 0 auto;">
+
+                                <div class="form-group text-right">
+                                    <span><a href="~/Question/Add" class="btn btn-outline-info">Add New Question</a></span>
+                                    <hr />
+                                </div>
+                            
+                                <table class="table table-striped table-bordered table-sm">
+                                    <tr>                                                          
+                                        <th class="text-center">Question</th> 
+                                        <th class="text-center">Question Type</th>      
+                                        <th class="text-center">Question Subsection</th> 
+                                        <th class="text-center">Question Section</th> 
+                                        <th class="text-center">Cell</th> 
+                                    </tr>
+                                    @* @{
+                                    if(Model.Count() > 0)
+                                        {
+
+                                            foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                                    
+                                                    <td class="text-right">@item.SubunitName</td>
+                                                    <td class="text-right">@item.SubunitEmail</td>
+                                                    <td class="text-center">
+                                                        <form asp-action="Delete" method="post">
+                                                            <a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-catalogueId="@item.SubunitID">
+                                                                Edit
+                                                            </a>
+                                                            <input type="hidden" name="SubunitID" value="@item.SubunitID" />
+                                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                                Delete
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    } *@
+                                </table>
+
+                            </div>
+                        </div>
+                   </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
